@@ -2,9 +2,49 @@
 	<head>
 		<title>JustPage</title>
 	</head>
-<body>
-<body bgcolor="#FFDEAD"></body>
-<h1>Random text </h1>
+	<body bgcolor="#FFDEAD">
+	Введите имя: <input type="text" id="name"><br><br>
+	<button onclick="setCookie('name', document.getElementById('name').value.trim(), 9999999)">Запомнить меня</button><br><br>
+	<button onclick="alert(getCookie('name'))">Кто посетил</button>
+	</body>
 </html>
-</body>
-</html>
+<script>
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function checkCookie(cname) {
+    var user = getCookie(cname);
+    if (user != "") {
+        alert("I know this key!");
+    } else {
+        value = prompt("Введите значение:", "");
+        if (value != "" && value != null) {
+            setCookie(cname, value, 365);
+        }
+    }
+}
+
+function deleteCookie(cname) {
+  setCookie(cname, "", -1)
+}
+
+</script>
